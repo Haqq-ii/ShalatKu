@@ -1,12 +1,15 @@
 package com.pab.shalatku
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,13 +20,24 @@ import androidx.compose.ui.unit.dp
 fun TrackerScreen(
     prayers: List<Prayer>,
     donePrayers: List<String>,
+    doneCount: Int,
     onToggle: (String) -> Unit,
+    onClear: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(modifier.padding(16.dp)) {
-        Text("Prayer Tracker", style = MaterialTheme.typography.headlineMedium)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("Prayer Tracker", style = MaterialTheme.typography.headlineMedium)
+            OutlinedButton(onClick = onClear) {
+                Text("Clear all")
+            }
+        }
         Text(
-            "${donePrayers.size} of ${prayers.size} prayers done today",
+            "$doneCount of ${prayers.size} prayers done today",
             style = MaterialTheme.typography.bodyLarge
         )
         Spacer(Modifier.height(16.dp))
